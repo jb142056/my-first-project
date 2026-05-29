@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>株式会社Nowb | 営業代理業・セールスコンサルティング</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep:    #040b18;
+      --bg-dark:    #071428;
+      --bg-mid:     #0b1d3a;
+      --bg-card:    #0e2040;
+      --bg-card2:   #112448;
+      --border:     rgba(255,255,255,0.07);
+      --border-gold: rgba(201,162,39,0.35);
+      --gold:       #c9a227;
+      --gold-light: #e8bb40;
+      --gold-dim:   rgba(201,162,39,0.15);
+      --white:      #ffffff;
+      --text-pri:   rgba(255,255,255,0.95);
+      --text-sec:   rgba(255,255,255,0.65);
+      --text-muted: rgba(255,255,255,0.38);
+      --radius:     14px;
+      --shadow:     0 4px 32px rgba(0,0,0,0.40);
+      --shadow-lg:  0 16px 56px rgba(0,0,0,0.55);
+      --glow:       0 0 40px rgba(201,162,39,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-pri);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ═══════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      background: rgba(4,11,24,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    nav.scrolled { background: rgba(4,11,24,0.97); }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-wordmark {
+      display: flex;
+      align-items: baseline;
+      line-height: 1;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1.65rem;
+      letter-spacing: -0.01em;
+      transition: opacity 0.2s;
+    }
+
+    .nav-logo:hover .nav-logo-wordmark { opacity: 0.85; }
+
+    .wm-now { color: #ffffff; }
+    .wm-b   { color: #4ECDC4; }
+
+    .nav-logo-sub {
+      display: block;
+      font-size: 0.54rem;
+      color: rgba(255,255,255,0.32);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 3px;
+      font-family: sans-serif;
+    }
+
+    /* デスクトップリンク */
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-sec);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--gold-light); }
+
+    .nav-links .nav-cta {
+      background: var(--gold);
+      color: #071428 !important;
+      font-weight: 700;
+      padding: 8px 20px;
+      border-radius: 20px;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+
+    .nav-links .nav-cta:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+      color: #071428 !important;
+    }
+
+    /* ハンバーガー */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      border: none;
+      background: none;
+      z-index: 210;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* モバイルメニュー */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 190;
+      background: rgba(4,11,24,0.98);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-menu a {
+      color: var(--text-pri);
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding: 12px 40px;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.2s;
+      letter-spacing: 0.04em;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--gold-light);
+      background: var(--gold-dim);
+    }
+
+    .mobile-menu .mobile-cta {
+      margin-top: 16px;
+      background: var(--gold);
+      color: #071428 !important;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      padding: 14px 48px;
+    }
+
+    .mobile-menu .mobile-cta:hover {
+      background: var(--gold-light);
+      color: #071428 !important;
+    }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 5% 80px;
+      background: var(--bg-deep);
+      overflow: hidden;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero-glow-ring {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-glow-ring.r1 {
+      width: 700px; height: 700px;
+      top: -200px; right: -150px;
+      background: radial-gradient(circle, rgba(201,162,39,0.10) 0%, transparent 70%);
+      animation: glow-drift 8s ease-in-out infinite alternate;
+    }
+    .hero-glow-ring.r2 {
+      width: 500px; height: 500px;
+      bottom: -150px; left: -100px;
+      background: radial-gradient(circle, rgba(10,60,140,0.30) 0%, transparent 70%);
+      animation: glow-drift 12s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes glow-drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, -20px) scale(1.06); }
+    }
+
+    .hero-grid-line {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 840px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-dim);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border-radius: 20px;
+      margin-bottom: 32px;
+      animation: badge-in 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes badge-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(201,162,39,0.6); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(201,162,39,0); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      animation: hero-text-in 1s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    @keyframes hero-text-in {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 .line1 { color: var(--white); }
+    .hero h1 .line2 { color: var(--white); }
+
+    .hero h1 .highlight {
+      color: var(--gold-light);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 2px; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      border-radius: 2px;
+      opacity: 0.65;
+      animation: underline-grow 0.8s ease 1s forwards;
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    @keyframes underline-grow {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+
+    /* タイピングテキスト */
+    .hero-typing-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      animation: hero-text-in 1s ease 0.35s forwards;
+      opacity: 0;
+    }
+
+    .typing-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .typing-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      min-height: 1.5em;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--gold);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.9s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-sec);
+      max-width: 580px;
+      line-height: 1.9;
+      margin-bottom: 44px;
+      animation: hero-text-in 1s ease 0.45s forwards;
+      opacity: 0;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+      animation: hero-text-in 1s ease 0.55s forwards;
+      opacity: 0;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #071428;
+      font-weight: 800;
+      font-size: 0.96rem;
+      padding: 15px 36px;
+      border-radius: 32px;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 6px 28px rgba(201,162,39,0.50);
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(201,162,39,0.65);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.96rem;
+      padding: 15px 36px;
+      border-radius: 32px;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      transition: all 0.25s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.40);
+      transform: translateY(-2px);
+    }
+
+    /* 統計カウンター */
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      border-top: 1px solid rgba(255,255,255,0.09);
+      padding-top: 40px;
+      animation: hero-text-in 1s ease 0.65s forwards;
+      opacity: 0;
+    }
+
+    .hero-stat {
+      flex: 1;
+      padding: 0 32px 0 0;
+      border-right: 1px solid rgba(255,255,255,0.09);
+    }
+
+    .hero-stat:last-child { border-right: none; padding-right: 0; padding-left: 32px; }
+    .hero-stat:first-child { padding-left: 0; }
+
+    .hero-stat .num {
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--gold-light);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-stat .unit { font-size: 1.2rem; }
+
+    .hero-stat p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      letter-spacing: 0.06em;
+    }
+
+    /* スクロールインジケーター */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      animation: float-y 2.5s ease-in-out infinite;
+    }
+
+    .scroll-indicator .arrow {
+      width: 20px; height: 20px;
+      border-right: 2px solid var(--text-muted);
+      border-bottom: 2px solid var(--text-muted);
+      transform: rotate(45deg);
+    }
+
+    @keyframes float-y {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ═══════════════════════════════════════
+       SECTION BASE
+    ═══════════════════════════════════════ */
+    section { padding: 96px 5%; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.28;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 0.98rem;
+      color: var(--text-sec);
+      max-width: 540px;
+      line-height: 1.9;
+    }
+
+    .section-header { margin-bottom: 60px; }
+
+    /* ═══════════════════════════════════════
+       SERVICES
+    ═══════════════════════════════════════ */
+    #services { background: var(--bg-mid); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,162,39,0.06), transparent);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg), var(--glow);
+      border-color: var(--border-gold);
+    }
+
+    .service-card:hover::after { opacity: 1; }
+
+    .service-icon {
+      width: 68px; height: 68px;
+      background: linear-gradient(135deg, rgba(201,162,39,0.20), rgba(201,162,39,0.08));
+      border: 1px solid var(--border-gold);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 28px;
+    }
+
+    .service-card h3 {
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .service-card p {
+      font-size: 0.91rem;
+      color: var(--text-sec);
+      line-height: 1.9;
+      margin-bottom: 28px;
+    }
+
+    .service-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--text-sec);
+      font-size: 0.73rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    /* ═══════════════════════════════════════
+       TRUST
+    ═══════════════════════════════════════ */
+    #trust { background: var(--bg-dark); }
+
+    .trust-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .trust-visual { position: relative; padding-bottom: 40px; }
+
+    .trust-card-main {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trust-card-main::before {
+      content: '"';
+      position: absolute;
+      top: -12px; left: 32px;
+      font-size: 8rem;
+      color: var(--gold);
+      opacity: 0.12;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .trust-card-main .quote {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--text-pri);
+      font-style: italic;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .trust-card-main .quoter {
+      font-size: 0.83rem;
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    .trust-card-accent {
+      position: absolute;
+      bottom: 0; right: -16px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 16px;
+      padding: 20px 28px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .trust-card-accent .big-num {
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: #071428;
+      line-height: 1;
+    }
+
+    .trust-card-accent .label {
+      font-size: 0.7rem;
+      color: #071428;
+      font-weight: 700;
+      margin-top: 4px;
+      opacity: 0.75;
+    }
+
+    .trust-points {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .trust-point {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .trust-point-icon {
+      width: 52px; height: 52px;
+      min-width: 52px;
+      background: linear-gradient(135deg, rgba(201,162,39,0.20), rgba(201,162,39,0.08));
+      border: 1px solid var(--border-gold);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .trust-point h4 {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .trust-point p {
+      font-size: 0.87rem;
+      color: var(--text-sec);
+      line-height: 1.8;
+    }
+
+    /* ═══════════════════════════════════════
+       FLOW
+    ═══════════════════════════════════════ */
+    #flow { background: var(--bg-mid); }
+
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .flow-connector {
+      position: absolute;
+      top: 35px;
+      left: calc(12.5% + 20px);
+      right: calc(12.5% + 20px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      opacity: 0.22;
+    }
+
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .flow-num {
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s;
+    }
+
+    .flow-num.dark {
+      background: var(--bg-card);
+      border: 2px solid rgba(201,162,39,0.35);
+      color: var(--gold-light);
+      box-shadow: 0 0 24px rgba(201,162,39,0.15);
+    }
+
+    .flow-num.gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #071428;
+      box-shadow: 0 6px 24px rgba(201,162,39,0.45);
+    }
+
+    .flow-step:hover .flow-num { transform: scale(1.1); }
+
+    .flow-step h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .flow-step p {
+      font-size: 0.82rem;
+      color: var(--text-sec);
+      line-height: 1.75;
+    }
+
+    /* ═══════════════════════════════════════
+       FEATURES
+    ═══════════════════════════════════════ */
+    #features { background: var(--bg-dark); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,162,39,0.07), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-gold);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 32px rgba(201,162,39,0.12);
+    }
+
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-card .icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .feature-card h4 {
+      font-size: 1.0rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 0.87rem;
+      color: var(--text-sec);
+      line-height: 1.8;
+    }
+
+    /* ═══════════════════════════════════════
+       CONTACT FORM
+    ═══════════════════════════════════════ */
+    #contact { background: var(--bg-mid); }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .contact-info-block { padding-top: 8px; }
+
+    .contact-info-block .section-desc { margin-bottom: 40px; }
+
+    .contact-detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .contact-detail-icon {
+      width: 48px; height: 48px;
+      min-width: 48px;
+      background: var(--gold-dim);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+
+    .contact-detail h5 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+
+    .contact-detail p {
+      font-size: 0.92rem;
+      color: var(--text-pri);
+      font-weight: 500;
+    }
+
+    /* フォーム */
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 44px;
+    }
+
+    .contact-form h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-sec);
+      letter-spacing: 0.05em;
+    }
+
+    .form-group label .required {
+      color: var(--gold);
+      margin-left: 4px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--bg-dark);
+      border: 1.5px solid rgba(255,255,255,0.10);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 0.92rem;
+      font-family: inherit;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+      appearance: none;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a227' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    .form-group select option {
+      background: var(--bg-card);
+      color: var(--white);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,162,39,0.12);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .form-privacy {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 28px;
+      color: var(--text-sec);
+      font-size: 0.8rem;
+      line-height: 1.6;
+      cursor: pointer;
+    }
+
+    .form-privacy input[type="checkbox"] {
+      width: 18px; height: 18px;
+      min-width: 18px;
+      margin-top: 1px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #071428;
+      font-weight: 800;
+      font-size: 1.0rem;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s;
+      letter-spacing: 0.04em;
+      box-shadow: 0 6px 24px rgba(201,162,39,0.40);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(201,162,39,0.55);
+    }
+
+    .btn-submit:active { transform: translateY(0); }
+
+    /* 送信完了メッセージ */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 48px 0;
+    }
+
+    .form-success .success-icon {
+      font-size: 3.5rem;
+      margin-bottom: 16px;
+    }
+
+    .form-success h4 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .form-success p {
+      color: var(--text-sec);
+      font-size: 0.92rem;
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    footer {
+      background: var(--bg-deep);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 64px 5% 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+
+    .footer-nav h5,
+    .footer-contact-col h5 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-nav a {
+      color: var(--text-sec);
+      text-decoration: none;
+      font-size: 0.88rem;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover { color: var(--gold-light); }
+
+    .footer-contact-col .footer-contact-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      font-size: 0.86rem;
+      color: var(--text-sec);
+    }
+
+    .footer-contact-item .fi-icon { font-size: 1rem; margin-top: 1px; flex-shrink: 0; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .footer-copy strong { color: var(--text-sec); font-weight: 600; }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold-light); }
+
+    /* ═══════════════════════════════════════
+       SCROLL PROGRESS BAR
+    ═══════════════════════════════════════ */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      z-index: 999;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in-left {
+      opacity: 0;
+      transform: translateX(-32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .fade-in-right {
+      opacity: 0;
+      transform: translateX(32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .trust-layout { grid-template-columns: 1fr; gap: 48px; }
+      .trust-card-accent { bottom: -8px; right: 0; }
+      .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+
+      section { padding: 72px 4%; }
+
+      #hero { padding: 100px 4% 80px; }
+
+      .hero-stats { flex-wrap: wrap; gap: 0; }
+      .hero-stat { min-width: 50%; border-right: none !important; padding: 16px 0 !important; border-bottom: 1px solid rgba(255,255,255,0.09); }
+
+      .flow-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .flow-connector { display: none; }
+
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 32px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-secondary { justify-content: center; }
+      .flow-steps { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- スクロールプログレスバー -->
+<div id="progress-bar"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <div>
+      <div class="nav-logo-wordmark"><span class="wm-now">Now</span><span class="wm-b">b</span></div>
+      <span class="nav-logo-sub">株式会社 · 営業代理業</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#services">サービス</a></li>
+    <li><a href="#trust">私たちの強み</a></li>
+    <li><a href="#flow">ご利用の流れ</a></li>
+    <li><a href="#features">特徴</a></li>
+    <li><a href="recruit.html">採用情報</a></li>
+    <li><a href="#contact" class="nav-cta">お問い合わせ</a></li>
+  </ul>
+
+  <button class="hamburger" id="hamburger" aria-label="メニューを開く">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- モバイルメニュー -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#services"  class="mobile-link">サービス</a>
+  <a href="#trust"     class="mobile-link">私たちの強み</a>
+  <a href="#flow"      class="mobile-link">ご利用の流れ</a>
+  <a href="#features"  class="mobile-link">特徴</a>
+  <a href="recruit.html" class="mobile-link">採用情報</a>
+  <a href="#contact"   class="mobile-link mobile-cta">お問い合わせ</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-glow-ring r1"></div>
+  <div class="hero-glow-ring r2"></div>
+  <div class="hero-grid-line"></div>
+
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Trusted Sales Agency — 正規代理店
+    </div>
+
+    <h1>
+      <span class="line1">信頼と誠実さで、</span><br>
+      <span class="line2">お客様の未来に<span class="highlight">最適解</span>を。</span>
+    </h1>
+
+    <div class="hero-typing-wrap">
+      <span class="typing-label">取り扱い：</span>
+      <span class="typing-text" id="typing-text"></span><span class="typing-cursor"></span>
+    </div>
+
+    <p class="hero-desc">
+      ホワイトニング機器（シャリオン正規代理店）と通信回線の2分野で、
+      丁寧なヒアリングから導入後のサポートまで一貫してお手伝いします。
+      数字を追うだけでなく、お客様に本当に合ったプランをご提案します。
+    </p>
+
+    <div class="hero-btns">
+      <a href="#services"  class="btn-primary">▸ サービスを見る</a>
+      <a href="#contact" class="btn-secondary">お問い合わせ →</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num"><span class="counter" data-target="98">0</span><span class="unit">%</span></div>
+        <p>顧客満足度</p>
+      </div>
+      <div class="hero-stat">
+        <div class="num"><span class="counter" data-target="500">0</span><span class="unit">+</span></div>
+        <p>導入実績</p>
+      </div>
+      <div class="hero-stat">
+        <div class="num"><span class="counter" data-target="24">0</span><span class="unit">h</span></div>
+        <p>最短返答時間</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>SCROLL</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <div class="section-header fade-in">
+    <div class="section-label">Our Services</div>
+    <h2 class="section-title">取り扱いサービス</h2>
+    <p class="section-desc">
+      2つの専門分野で、お客様のビジネスと生活に確かな価値をお届けします。
+    </p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-in">
+      <div class="service-icon">✨</div>
+      <h3>ホワイトニング機器<br>シャリオン正規代理店</h3>
+      <p>
+        業界トップクラスのホワイトニングブランド「シャリオン」の正規代理店として、
+        エステ・美容室・ネイルサロン・ジム・整骨院へ最適な機器選びからご提案。
+        導入後のアフターフォローまで責任を持ってサポートします。
+      </p>
+      <div class="service-tags">
+        <span class="tag">エステ</span>
+        <span class="tag">美容室</span>
+        <span class="tag">ネイルサロン</span>
+        <span class="tag">ジム</span>
+        <span class="tag">整骨院</span>
+        <span class="tag">正規代理店</span>
+      </div>
+    </div>
+    <div class="service-card fade-in">
+      <div class="service-icon">📡</div>
+      <h3>通信回線<br>インターネット回線提案</h3>
+      <p>
+        法人・個人事業主・個人の方まで、用途や環境に合わせた最適な通信回線プランをご提案。
+        複数キャリアから比較・選定し、コスト削減と安定通信の両立をサポートします。
+      </p>
+      <div class="service-tags">
+        <span class="tag">法人向け</span>
+        <span class="tag">個人向け</span>
+        <span class="tag">複数回線比較</span>
+        <span class="tag">コスト最適化</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TRUST ═══ -->
+<section id="trust">
+  <div class="trust-layout">
+    <div class="trust-visual fade-in-left">
+      <div class="trust-card-main">
+        <p class="quote">
+          「どんな小さな疑問にも丁寧に答えてくれて、
+          押し売りが一切ない。本当に私たちのことを
+          考えてくれていると感じました。」
+        </p>
+        <p class="quoter">— エステサロン オーナー様 / ご導入から2年</p>
+      </div>
+      <div class="trust-card-accent">
+        <div class="big-num">★ 4.9</div>
+        <div class="label">平均評価スコア</div>
+      </div>
+    </div>
+    <div class="fade-in-right">
+      <div class="section-label">Why Choose Us</div>
+      <h2 class="section-title">私たちが選ばれる<br>3つの理由</h2>
+      <div class="trust-points">
+        <div class="trust-point fade-in">
+          <div class="trust-point-icon">🤝</div>
+          <div>
+            <h4>誠実なヒアリングと提案</h4>
+            <p>まずはお客様の状況・課題・目標を徹底的にヒアリング。売りたいものではなく、本当に必要なものだけをご提案します。</p>
+          </div>
+        </div>
+        <div class="trust-point fade-in">
+          <div class="trust-point-icon">🛡️</div>
+          <div>
+            <h4>導入後も切れないサポート</h4>
+            <p>契約して終わりではありません。運用中のトラブルや疑問に迅速に対応。長期的なパートナーとして伴走します。</p>
+          </div>
+        </div>
+        <div class="trust-point fade-in">
+          <div class="trust-point-icon">💡</div>
+          <div>
+            <h4>2分野の専門知識×幅広いネットワーク</h4>
+            <p>ホワイトニング機器と通信回線、両分野の深い知識を持ち、複数の選択肢の中から最適解を導きます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FLOW ═══ -->
+<section id="flow">
+  <div class="section-header fade-in" style="text-align:center;">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">ご利用の流れ</h2>
+    <p class="section-desc" style="margin:0 auto;">お問い合わせから導入まで、スムーズに進めます。</p>
+  </div>
+  <div class="flow-steps">
+    <div class="flow-connector"></div>
+    <div class="flow-step fade-in">
+      <div class="flow-num dark">1</div>
+      <h4>お問い合わせ</h4>
+      <p>まずはお気軽に。電話・メール・フォームどちらでもOKです。</p>
+    </div>
+    <div class="flow-step fade-in">
+      <div class="flow-num gold">2</div>
+      <h4>ヒアリング</h4>
+      <p>現状の課題やご要望を丁寧にお聞きします。</p>
+    </div>
+    <div class="flow-step fade-in">
+      <div class="flow-num dark">3</div>
+      <h4>プラン提案</h4>
+      <p>最適なプランを比較資料とともにご提示します。</p>
+    </div>
+    <div class="flow-step fade-in">
+      <div class="flow-num gold">4</div>
+      <h4>導入・サポート</h4>
+      <p>スムーズな導入から、その後のフォローまで対応します。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section id="features">
+  <div class="section-header fade-in">
+    <div class="section-label">Our Promise</div>
+    <h2 class="section-title">安心してお任せいただける<br>6つのこと</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card fade-in">
+      <span class="icon">🎯</span>
+      <h4>押し売りなし</h4>
+      <p>お客様のペースを尊重。「今すぐ決めて」は言いません。</p>
+    </div>
+    <div class="feature-card fade-in">
+      <span class="icon">💬</span>
+      <h4>わかりやすい説明</h4>
+      <p>専門用語を使わず、メリット・デメリットを正直にお伝えします。</p>
+    </div>
+    <div class="feature-card fade-in">
+      <span class="icon">⚡</span>
+      <h4>レスポンスの速さ</h4>
+      <p>お問い合わせには原則24時間以内にご返答します。</p>
+    </div>
+    <div class="feature-card fade-in">
+      <span class="icon">📋</span>
+      <h4>明瞭な料金体系</h4>
+      <p>隠れた費用は一切なし。最初にすべての費用をご説明します。</p>
+    </div>
+    <div class="feature-card fade-in">
+      <span class="icon">🔄</span>
+      <h4>継続的な最適化提案</h4>
+      <p>定期的な見直しで、常に最適な状態を維持するご提案を行います。</p>
+    </div>
+    <div class="feature-card fade-in">
+      <span class="icon">🏆</span>
+      <h4>正規代理店の安心感</h4>
+      <p>シャリオン正規代理店として、品質保証とメーカーサポートを提供。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT FORM ═══ -->
+<section id="contact">
+  <div class="contact-layout">
+    <div class="contact-info-block fade-in-left">
+      <div class="section-label">Contact Us</div>
+      <h2 class="section-title">お問い合わせ</h2>
+      <p class="section-desc">
+        ホワイトニング機器・通信回線について、どんな小さな疑問もお気軽にご相談ください。
+        担当者が誠実にお答えします。
+      </p>
+
+      <div class="contact-detail-list">
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <div>
+            <h5>お電話</h5>
+            <p><strong style="color:var(--white);font-size:1.08rem;letter-spacing:0.04em;">050-1793-5146</strong></p>
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-top:2px;">平日 9:00〜18:00</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">⏰</div>
+          <div>
+            <h5>対応時間</h5>
+            <p>平日 9:00〜18:00</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div>
+            <h5>対応エリア</h5>
+            <p>全国対応可（リモート対応可）</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📧</div>
+          <div>
+            <h5>メール</h5>
+            <p>jb142056h@gmail.com</p>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">💌</div>
+          <div>
+            <h5>返答目安</h5>
+            <p>原則24時間以内にご返答</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form fade-in-right" id="contact-form-wrap">
+      <h3>📝 お問い合わせフォーム</h3>
+
+      <form id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label>お名前<span class="required">*</span></label>
+            <input type="text" name="name" placeholder="山田 太郎" required />
+          </div>
+          <div class="form-group">
+            <label>会社名・屋号</label>
+            <input type="text" name="company" placeholder="株式会社〇〇" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>メールアドレス<span class="required">*</span></label>
+            <input type="email" name="email" placeholder="example@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>電話番号</label>
+            <input type="tel" name="tel" placeholder="090-0000-0000" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>お問い合わせ種別<span class="required">*</span></label>
+          <select name="category" required>
+            <option value="" disabled selected>選択してください</option>
+            <option value="whitening">ホワイトニング機器（シャリオン）について</option>
+            <option value="line">通信回線・インターネット回線について</option>
+            <option value="both">両方について</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>お問い合わせ内容<span class="required">*</span></label>
+          <textarea name="message" placeholder="ご質問・ご相談内容をご記入ください。どんな些細なことでもお気軽にどうぞ。" required></textarea>
+        </div>
+
+        <label class="form-privacy">
+          <input type="checkbox" name="privacy" required />
+          <span>個人情報の取り扱いに同意します。いただいた情報は、お問い合わせへの返答以外の目的に使用いたしません。</span>
+        </label>
+
+        <button type="submit" class="btn-submit">送信する →</button>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <div class="success-icon">✅</div>
+        <h4>送信が完了しました！</h4>
+        <p>原則24時間以内にご返答いたします。<br>しばらくお待ちください。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo" style="pointer-events:none;">
+          <div class="nav-logo-wordmark"><span class="wm-now">Now</span><span class="wm-b">b</span></div>
+          <span class="nav-logo-sub">株式会社 · 営業代理業</span>
+        </div>
+        <p>
+          営業代理業・セールスコンサルティングを通じて、
+          ホワイトニング機器と通信回線の2分野でお客様の事業成長をサポート。
+          「信頼と誠実さ」を軸に、長期的なパートナーシップを目指しています。
+        </p>
+      </div>
+
+      <div class="footer-nav">
+        <h5>Navigation</h5>
+        <ul>
+          <li><a href="#services">サービス</a></li>
+          <li><a href="#trust">私たちの強み</a></li>
+          <li><a href="#flow">ご利用の流れ</a></li>
+          <li><a href="#features">特徴</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact-col">
+        <h5>Contact</h5>
+        <div class="footer-contact-item">
+          <span class="fi-icon">📞</span>
+          <span style="color:var(--gold-light);font-weight:700;">050-1793-5146</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="fi-icon">⏰</span>
+          <span>平日 9:00〜18:00</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="fi-icon">📍</span>
+          <span>全国対応可（リモート対応可）</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="fi-icon">📧</span>
+          <span>jb142056h@gmail.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="fi-icon">💌</span>
+          <span>24時間以内にご返答</span>
+        </div>
+        <div class="footer-contact-item" style="margin-top:16px;">
+          <span class="fi-icon">🦷</span>
+          <span>シャリオン正規代理店</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="fi-icon">📡</span>
+          <span>通信回線取り扱い</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">
+        <strong>株式会社Nowb</strong><br>
+        &copy; 2024 Nowb Inc. All rights reserved.<br>
+        <span style="font-size:0.72rem;">営業代理業・セールスコンサルティング | シャリオン正規代理店 | 通信回線営業代理店</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">利用規約</a>
+        <a href="#contact">お問い合わせ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ─── パーティクル（星）背景 ─── */
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function rand(min, max) { return Math.random() * (max - min) + min; }
+
+  function initParticles() {
+    particles = [];
+    const count = Math.floor((W * H) / 8000);
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: rand(0, W),
+        y: rand(0, H),
+        r: rand(0.3, 1.6),
+        alpha: rand(0.2, 0.85),
+        speed: rand(0.05, 0.25),
+        dir: rand(0, Math.PI * 2),
+        twinkle: rand(0, Math.PI * 2),
+        twinkleSpeed: rand(0.02, 0.06),
+      });
+    }
+  }
+  initParticles();
+  window.addEventListener('resize', initParticles);
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      p.twinkle += p.twinkleSpeed;
+      const a = p.alpha * (0.5 + 0.5 * Math.sin(p.twinkle));
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${a})`;
+      ctx.fill();
+
+      p.x += Math.cos(p.dir) * p.speed;
+      p.y += Math.sin(p.dir) * p.speed;
+      if (p.x < -5) p.x = W + 5;
+      if (p.x > W + 5) p.x = -5;
+      if (p.y < -5) p.y = H + 5;
+      if (p.y > H + 5) p.y = -5;
+    });
+
+    /* 流れ星（ごくたまに） */
+    if (Math.random() < 0.003) {
+      const sx = rand(0, W);
+      const sy = rand(0, H * 0.5);
+      const len = rand(80, 200);
+      const grad = ctx.createLinearGradient(sx, sy, sx + len * 0.7, sy + len * 0.4);
+      grad.addColorStop(0, 'rgba(255,255,255,0)');
+      grad.addColorStop(0.4, 'rgba(255,255,255,0.6)');
+      grad.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.beginPath();
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.2;
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(sx + len * 0.7, sy + len * 0.4);
+      ctx.stroke();
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ─── ナビゲーション ─── */
+const navbar   = document.getElementById('navbar');
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+
+document.querySelectorAll('.mobile-link').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* ─── スクロールプログレスバー ─── */
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (window.scrollY / total * 100) + '%';
+});
+
+/* ─── ナビ アクティブリンク ─── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+
+/* ─── フェードイン アニメーション ─── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 90);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.10 });
+
+document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => observer.observe(el));
+
+/* ─── カウンターアニメーション ─── */
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1800;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+    counterObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+/* ─── タイピングアニメーション ─── */
+const phrases = [
+  'ホワイトニング機器（シャリオン）',
+  '通信回線・インターネット回線',
+  '正規代理店として誠実なご提案',
+];
+const typingEl = document.getElementById('typing-text');
+let phraseIdx = 0, charIdx = 0, deleting = false, wait = 0;
+
+function type() {
+  const phrase = phrases[phraseIdx];
+  if (deleting) {
+    charIdx--;
+    typingEl.textContent = phrase.slice(0, charIdx);
+    if (charIdx === 0) {
+      deleting = false;
+      phraseIdx = (phraseIdx + 1) % phrases.length;
+      wait = 400;
+    }
+  } else {
+    charIdx++;
+    typingEl.textContent = phrase.slice(0, charIdx);
+    if (charIdx === phrase.length) {
+      deleting = true;
+      wait = 1800;
+    }
+  }
+  setTimeout(type, wait || (deleting ? 48 : 68));
+  wait = 0;
+}
+setTimeout(type, 1000);
+
+/* ─── お問い合わせフォーム ─── */
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = this;
+  const btn  = form.querySelector('.btn-submit');
+
+  btn.textContent = '送信中...';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    form.style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  }, 1200);
+});
+</script>
+</body>
+</html>

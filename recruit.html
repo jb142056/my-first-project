@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>採用情報 | 株式会社Nowb</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep:    #040b18;
+      --bg-dark:    #071428;
+      --bg-mid:     #0b1d3a;
+      --bg-card:    #0e2040;
+      --border:     rgba(255,255,255,0.07);
+      --border-gold: rgba(201,162,39,0.35);
+      --gold:       #c9a227;
+      --gold-light: #e8bb40;
+      --gold-dim:   rgba(201,162,39,0.14);
+      --white:      #ffffff;
+      --text-pri:   rgba(255,255,255,0.95);
+      --text-sec:   rgba(255,255,255,0.65);
+      --text-muted: rgba(255,255,255,0.38);
+      --green:      #22c55e;
+      --radius:     14px;
+      --shadow:     0 4px 32px rgba(0,0,0,0.40);
+      --shadow-lg:  0 16px 56px rgba(0,0,0,0.55);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-pri);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ═══ PROGRESS ═══ */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      z-index: 999;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      background: rgba(4,11,24,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    nav.scrolled { background: rgba(4,11,24,0.98); }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-wordmark {
+      display: flex;
+      align-items: baseline;
+      line-height: 1;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1.65rem;
+      letter-spacing: -0.01em;
+      transition: opacity 0.2s;
+    }
+
+    .nav-logo:hover .nav-logo-wordmark { opacity: 0.85; }
+
+    .wm-now { color: #ffffff; }
+    .wm-b   { color: #4ECDC4; }
+
+    .nav-logo-sub {
+      display: block;
+      font-size: 0.54rem;
+      color: rgba(255,255,255,0.32);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 3px;
+      font-family: sans-serif;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-sec);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+
+    .nav-links .nav-cta {
+      background: var(--gold);
+      color: #071428 !important;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+
+    .nav-links .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      border: none;
+      background: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 190;
+      background: rgba(4,11,24,0.98);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s;
+    }
+
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+
+    .mobile-menu a {
+      color: var(--text-pri);
+      text-decoration: none;
+      font-size: 1.4rem;
+      font-weight: 700;
+      padding: 12px 40px;
+      border-radius: 12px;
+      transition: all 0.2s;
+    }
+
+    .mobile-menu a:hover { color: var(--gold-light); background: var(--gold-dim); }
+
+    .mobile-menu .mc { margin-top: 16px; background: var(--gold); color: #071428 !important; border-radius: 30px; }
+
+    /* ═══ HERO ═══ */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 110px 5% 90px;
+      background: var(--bg-deep);
+      overflow: hidden;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 20%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-glow.g1 {
+      width: 800px; height: 800px;
+      top: -300px; right: -200px;
+      background: radial-gradient(circle, rgba(201,162,39,0.09) 0%, transparent 70%);
+      animation: gd 9s ease-in-out infinite alternate;
+    }
+
+    .hero-glow.g2 {
+      width: 600px; height: 600px;
+      bottom: -200px; left: -150px;
+      background: radial-gradient(circle, rgba(10,50,130,0.28) 0%, transparent 70%);
+      animation: gd 13s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes gd {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(24px,-18px) scale(1.05); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-dim);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border-radius: 20px;
+      margin-bottom: 36px;
+      animation: fi 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fi {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(201,162,39,0.6); }
+      50%      { box-shadow: 0 0 0 6px rgba(201,162,39,0); }
+    }
+
+    /* 縦書き風サブコピー */
+    .hero-en {
+      font-size: clamp(0.9rem, 2vw, 1.15rem);
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fi 0.9s ease 0.15s forwards;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fi 1s ease 0.25s forwards;
+    }
+
+    .hero h1 .main-copy {
+      display: block;
+      background: linear-gradient(135deg, var(--white) 40%, rgba(255,255,255,0.6) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero h1 .accent-copy {
+      display: block;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 60%, #f5d060 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      border-radius: 2px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fi 0.8s ease 0.4s forwards;
+    }
+
+    .hero-desc {
+      font-size: 1.08rem;
+      color: var(--text-sec);
+      line-height: 2.0;
+      max-width: 600px;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fi 0.9s ease 0.5s forwards;
+    }
+
+    .hero-desc strong { color: var(--white); font-weight: 700; }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 72px;
+      opacity: 0;
+      animation: fi 0.9s ease 0.6s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #071428;
+      font-weight: 800;
+      font-size: 0.96rem;
+      padding: 15px 36px;
+      border-radius: 32px;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 6px 28px rgba(201,162,39,0.50);
+    }
+
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(201,162,39,0.65); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.96rem;
+      padding: 15px 36px;
+      border-radius: 32px;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      transition: all 0.25s;
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.12); transform: translateY(-2px); }
+
+    /* キーワードタグ */
+    .hero-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fi 0.9s ease 0.7s forwards;
+    }
+
+    .hero-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--text-sec);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .hero-tag .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+    /* スクロール */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      animation: float-y 2.5s ease-in-out infinite;
+    }
+
+    .scroll-hint .arr {
+      width: 18px; height: 18px;
+      border-right: 2px solid var(--text-muted);
+      border-bottom: 2px solid var(--text-muted);
+      transform: rotate(45deg);
+    }
+
+    @keyframes float-y {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ═══ SECTION BASE ═══ */
+    section { padding: 96px 5%; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.28;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 0.97rem;
+      color: var(--text-sec);
+      max-width: 560px;
+      line-height: 1.95;
+    }
+
+    .section-header { margin-bottom: 60px; }
+
+    /* ═══ NUMBERS ═══ */
+    #numbers { background: var(--bg-mid); }
+
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2px;
+      background: var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .number-item {
+      background: var(--bg-card);
+      padding: 44px 36px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .number-item:hover { background: #112448; }
+
+    .number-item .num {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--gold-light);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .number-item .unit { font-size: 1.4rem; }
+
+    .number-item .label {
+      font-size: 0.82rem;
+      color: var(--text-sec);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .number-item .sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ═══ POSITIONS ═══ */
+    #positions { background: var(--bg-dark); }
+
+    .positions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .position-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .position-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-gold);
+    }
+
+    .position-header {
+      padding: 32px 36px 24px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .position-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gold-dim);
+      border: 1px solid var(--border-gold);
+      color: var(--gold-light);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    .position-tag.new {
+      background: rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.35);
+      color: #4ade80;
+    }
+
+    .position-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .position-card .pos-desc {
+      font-size: 0.87rem;
+      color: var(--text-sec);
+      line-height: 1.85;
+    }
+
+    .position-body { padding: 28px 36px 36px; }
+
+    .position-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .pd-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 0.87rem;
+    }
+
+    .pd-label {
+      min-width: 80px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding-top: 1px;
+    }
+
+    .pd-val {
+      color: var(--text-pri);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .pd-val .salary-hl {
+      color: var(--gold-light);
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .btn-apply {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #071428;
+      font-weight: 800;
+      font-size: 0.92rem;
+      padding: 13px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(201,162,39,0.35);
+    }
+
+    .btn-apply:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,162,39,0.50); }
+
+    /* ═══ CULTURE ═══ */
+    #culture { background: var(--bg-mid); }
+
+    .culture-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .culture-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 30px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .culture-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s;
+    }
+
+    .culture-card:hover { border-color: var(--border-gold); transform: translateY(-5px); }
+    .culture-card:hover::before { transform: scaleX(1); }
+
+    .culture-card .icon { font-size: 2.4rem; margin-bottom: 18px; display: block; }
+
+    .culture-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .culture-card p {
+      font-size: 0.87rem;
+      color: var(--text-sec);
+      line-height: 1.85;
+    }
+
+    /* ═══ VOICE ═══ */
+    #voice { background: var(--bg-dark); }
+
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .voice-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .voice-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+
+    .voice-card .q-mark {
+      font-size: 4rem;
+      color: var(--gold);
+      opacity: 0.15;
+      font-family: Georgia, serif;
+      line-height: 1;
+      margin-bottom: -12px;
+    }
+
+    .voice-card .voice-text {
+      font-size: 0.92rem;
+      color: var(--text-pri);
+      line-height: 1.9;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    .voice-person {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .voice-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dim), rgba(201,162,39,0.30));
+      border: 2px solid var(--border-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .voice-person h5 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .voice-person p {
+      font-size: 0.75rem;
+      color: var(--gold);
+      margin-top: 2px;
+    }
+
+    /* ═══ PROCESS ═══ */
+    #process { background: var(--bg-mid); }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: calc(10% + 16px);
+      right: calc(10% + 16px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      opacity: 0.2;
+    }
+
+    .process-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 16px;
+    }
+
+    .process-num {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.3s;
+    }
+
+    .process-num.dark {
+      background: var(--bg-card);
+      border: 2px solid var(--border-gold);
+      color: var(--gold-light);
+    }
+
+    .process-num.gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #071428;
+      box-shadow: 0 4px 20px rgba(201,162,39,0.40);
+    }
+
+    .process-step:hover .process-num { transform: scale(1.12); }
+
+    .process-step h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .process-step p {
+      font-size: 0.79rem;
+      color: var(--text-sec);
+      line-height: 1.7;
+    }
+
+    /* ═══ APPLY CTA ═══ */
+    #apply-cta {
+      background: var(--bg-deep);
+      padding: 100px 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #apply-cta::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      top: -300px; left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,162,39,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    #apply-cta .cta-en {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    #apply-cta h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+
+    #apply-cta h2 span { color: var(--gold-light); }
+
+    #apply-cta p {
+      font-size: 1.0rem;
+      color: var(--text-sec);
+      max-width: 480px;
+      margin: 0 auto 48px;
+      line-height: 1.9;
+    }
+
+    .apply-form-wrap {
+      max-width: 580px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 44px 40px;
+      text-align: left;
+    }
+
+    .apply-form-wrap h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-sec);
+      letter-spacing: 0.04em;
+    }
+
+    .form-group label .req { color: var(--gold); margin-left: 3px; }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--bg-dark);
+      border: 1.5px solid rgba(255,255,255,0.10);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 0.92rem;
+      font-family: inherit;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+      appearance: none;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a227' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    .form-group select option { background: var(--bg-card); color: var(--white); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,162,39,0.12);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .form-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--text-sec);
+      font-size: 0.79rem;
+      line-height: 1.6;
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+
+    .form-check input { width: 17px; height: 17px; min-width: 17px; accent-color: var(--gold); margin-top: 1px; cursor: pointer; }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #071428;
+      font-weight: 800;
+      font-size: 1.0rem;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s;
+      letter-spacing: 0.04em;
+      box-shadow: 0 6px 24px rgba(201,162,39,0.40);
+    }
+
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(201,162,39,0.55); }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 32px 0;
+    }
+
+    .form-success .si { font-size: 3.5rem; margin-bottom: 14px; }
+    .form-success h4 { font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .form-success p { color: var(--text-sec); font-size: 0.9rem; }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      background: var(--bg-deep);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 5% 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer-brand p {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+      margin-top: 16px;
+      max-width: 260px;
+    }
+
+    .footer-col h5 {
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .footer-col a {
+      color: var(--text-sec);
+      text-decoration: none;
+      font-size: 0.87rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-size: 0.77rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    .footer-copy strong { color: var(--text-sec); font-weight: 600; }
+
+    .footer-links { display: flex; gap: 20px; }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold-light); }
+
+    /* ═══ ANIMATIONS ═══ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    .fade-in-left {
+      opacity: 0;
+      transform: translateX(-28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-in-left.visible { opacity: 1; transform: translateX(0); }
+
+    .fade-in-right {
+      opacity: 0;
+      transform: translateX(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-in-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: flex; }
+      section { padding: 72px 4%; }
+      #hero { padding: 100px 4% 88px; }
+      .process-steps::before { display: none; }
+      .process-steps { gap: 28px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .form-row { grid-template-columns: 1fr; }
+      .apply-form-wrap { padding: 28px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; }
+      .btn-primary, .btn-secondary { justify-content: center; }
+      .positions-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div>
+      <div class="nav-logo-wordmark"><span class="wm-now">Now</span><span class="wm-b">b</span></div>
+      <span class="nav-logo-sub">採用情報 · Recruitment</span>
+    </div>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#positions">募集職種</a></li>
+    <li><a href="#culture">カルチャー</a></li>
+    <li><a href="#voice">社員の声</a></li>
+    <li><a href="#process">選考の流れ</a></li>
+    <li><a href="index.html">会社案内</a></li>
+    <li><a href="#apply-cta" class="nav-cta">今すぐ応募</a></li>
+  </ul>
+
+  <button class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#positions"  class="ml">募集職種</a>
+  <a href="#culture"    class="ml">カルチャー</a>
+  <a href="#voice"      class="ml">社員の声</a>
+  <a href="#process"    class="ml">選考の流れ</a>
+  <a href="index.html"  class="ml">会社案内</a>
+  <a href="#apply-cta"  class="ml mc">今すぐ応募</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-grid"></div>
+  <div class="hero-glow g1"></div>
+  <div class="hero-glow g2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      Recruitment 2024 — 株式会社Nowb
+    </div>
+
+    <p class="hero-en">Your Sales, Our Mission.</p>
+
+    <h1>
+      <span class="main-copy">売上を、</span>
+      <span class="accent-copy">共に動かす。</span>
+    </h1>
+
+    <div class="hero-divider"></div>
+
+    <p class="hero-desc">
+      株式会社Nowbは、営業代理店として<strong>クライアントの事業成長を最前線でサポート</strong>します。<br>
+      戦略立案から現場実行まで、一気通貫でお任せください。<br>
+      あなたの「売る力」が、社会を動かす原動力になります。
+    </p>
+
+    <div class="hero-btns">
+      <a href="#positions"  class="btn-primary">▸ 募集職種を見る</a>
+      <a href="#apply-cta" class="btn-secondary">今すぐ応募する →</a>
+    </div>
+
+    <div class="hero-tags">
+      <div class="hero-tag"><div class="dot"></div>年収300万〜1000万円</div>
+      <div class="hero-tag"><div class="dot"></div>成果報酬型インセンティブ</div>
+      <div class="hero-tag"><div class="dot"></div>未経験歓迎</div>
+      <div class="hero-tag"><div class="dot"></div>フルコミット歓迎</div>
+      <div class="hero-tag"><div class="dot"></div>全国対応</div>
+      <div class="hero-tag"><div class="dot"></div>📞 050-1793-5146</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="arr"></div>
+  </div>
+</section>
+
+<!-- ═══ NUMBERS ═══ -->
+<section id="numbers">
+  <div class="section-header fade-in" style="text-align:center;">
+    <div class="section-label">Our Numbers</div>
+    <h2 class="section-title">数字で見るNowb</h2>
+  </div>
+  <div class="numbers-grid">
+    <div class="number-item fade-in">
+      <div class="num"><span class="counter" data-target="300">0</span><span class="unit">万〜</span></div>
+      <div class="label">年収スタートライン</div>
+      <div class="sub">実力次第で1000万円超も可能</div>
+    </div>
+    <div class="number-item fade-in">
+      <div class="num"><span class="counter" data-target="98">0</span><span class="unit">%</span></div>
+      <div class="label">顧客満足度</div>
+      <div class="sub">誠実な提案が生む信頼</div>
+    </div>
+    <div class="number-item fade-in">
+      <div class="num"><span class="counter" data-target="500">0</span><span class="unit">+</span></div>
+      <div class="label">導入実績</div>
+      <div class="sub">幅広い業種に実績あり</div>
+    </div>
+    <div class="number-item fade-in">
+      <div class="num"><span class="counter" data-target="2">0</span><span class="unit">分野</span></div>
+      <div class="label">専門領域</div>
+      <div class="sub">ホワイトニング機器・通信回線</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ POSITIONS ═══ -->
+<section id="positions">
+  <div class="section-header fade-in">
+    <div class="section-label">Open Positions</div>
+    <h2 class="section-title">募集職種</h2>
+    <p class="section-desc">
+      あなたのスタイルと実力に合ったポジションで、
+      ともに営業の最前線を走りましょう。
+    </p>
+  </div>
+  <div class="positions-grid">
+
+    <!-- 営業職 -->
+    <div class="position-card fade-in">
+      <div class="position-header">
+        <div class="position-tag new">🔥 積極採用中</div>
+        <h3>営業職<br>（ホワイトニング機器担当）</h3>
+        <p class="pos-desc">
+          シャリオン正規代理店として、エステ・美容室・ネイルサロン・ジム・整骨院への
+          機器提案営業をお任せします。専門知識は入社後に習得できます。
+        </p>
+      </div>
+      <div class="position-body">
+        <div class="position-detail">
+          <div class="pd-row">
+            <span class="pd-label">年収</span>
+            <span class="pd-val"><span class="salary-hl">300万〜800万円</span><br><small style="color:var(--text-sec);font-size:0.78rem;">インセンティブ次第で1000万円超も</small></span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">雇用形態</span>
+            <span class="pd-val">正社員 / 業務委託（相談可）</span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">勤務地</span>
+            <span class="pd-val">全国（リモート対応可）</span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">経験</span>
+            <span class="pd-val">未経験歓迎・営業経験者優遇</span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">必須スキル</span>
+            <span class="pd-val">コミュニケーション力・向上心</span>
+          </div>
+        </div>
+        <a href="#apply-cta" class="btn-apply">この職種に応募する →</a>
+      </div>
+    </div>
+
+    <!-- 通信回線営業 -->
+    <div class="position-card fade-in">
+      <div class="position-header">
+        <div class="position-tag new">🔥 積極採用中</div>
+        <h3>営業職<br>（通信回線・インターネット担当）</h3>
+        <p class="pos-desc">
+          法人・個人向けに最適な通信回線プランを提案する営業職。
+          複数キャリアから比較提案するため、お客様への価値提供が実感できます。
+        </p>
+      </div>
+      <div class="position-body">
+        <div class="position-detail">
+          <div class="pd-row">
+            <span class="pd-label">年収</span>
+            <span class="pd-val"><span class="salary-hl">300万〜1000万円</span><br><small style="color:var(--text-sec);font-size:0.78rem;">成果報酬型インセンティブあり</small></span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">雇用形態</span>
+            <span class="pd-val">正社員 / 業務委託（相談可）</span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">勤務地</span>
+            <span class="pd-val">全国（リモート対応可）</span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">経験</span>
+            <span class="pd-val">未経験歓迎・IT営業経験者優遇</span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">必須スキル</span>
+            <span class="pd-val">対人折衝力・自己管理能力</span>
+          </div>
+        </div>
+        <a href="#apply-cta" class="btn-apply">この職種に応募する →</a>
+      </div>
+    </div>
+
+    <!-- 営業マネージャー -->
+    <div class="position-card fade-in">
+      <div class="position-header">
+        <div class="position-tag">マネジメント職</div>
+        <h3>営業マネージャー<br>（チームリード）</h3>
+        <p class="pos-desc">
+          メンバーの育成・KPI管理・クライアント折衝をリードするポジション。
+          営業経験者でチームを引っ張りたい方を歓迎します。
+        </p>
+      </div>
+      <div class="position-body">
+        <div class="position-detail">
+          <div class="pd-row">
+            <span class="pd-label">年収</span>
+            <span class="pd-val"><span class="salary-hl">500万〜1000万円</span><br><small style="color:var(--text-sec);font-size:0.78rem;">役職手当＋チームインセンティブ</small></span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">雇用形態</span>
+            <span class="pd-val">正社員</span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">勤務地</span>
+            <span class="pd-val">全国（フレックス制）</span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">経験</span>
+            <span class="pd-val">営業マネジメント経験3年以上</span>
+          </div>
+          <div class="pd-row">
+            <span class="pd-label">必須スキル</span>
+            <span class="pd-val">リーダーシップ・数値管理・育成経験</span>
+          </div>
+        </div>
+        <a href="#apply-cta" class="btn-apply">この職種に応募する →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CULTURE ═══ -->
+<section id="culture">
+  <div class="section-header fade-in" style="text-align:center;">
+    <div class="section-label">Our Culture</div>
+    <h2 class="section-title">Nowbで働くということ</h2>
+    <p class="section-desc" style="margin:0 auto;">
+      成果を出しながら、正直に・誠実に。それがNowbのスタイルです。
+    </p>
+  </div>
+  <div class="culture-grid">
+    <div class="culture-card fade-in">
+      <span class="icon">🎯</span>
+      <h4>成果がそのまま報酬になる</h4>
+      <p>頑張った分だけ正当に評価されます。インセンティブ設計は業界トップクラス。年功序列は一切ありません。</p>
+    </div>
+    <div class="culture-card fade-in">
+      <span class="icon">🤝</span>
+      <h4>誠実さを最上位に置く</h4>
+      <p>「売れれば何でもいい」ではなく、お客様に本当に必要なものを提案する文化。長期的な信頼が最大の武器です。</p>
+    </div>
+    <div class="culture-card fade-in">
+      <span class="icon">📈</span>
+      <h4>圧倒的な成長速度</h4>
+      <p>入社後6ヶ月で独立した営業スタイルを確立できる環境。OJTと実践を組み合わせた育成プログラムがあります。</p>
+    </div>
+    <div class="culture-card fade-in">
+      <span class="icon">🌐</span>
+      <h4>場所を選ばない働き方</h4>
+      <p>全国対応可・リモート営業対応。あなたの生活スタイルに合わせた柔軟な働き方を実現できます。</p>
+    </div>
+    <div class="culture-card fade-in">
+      <span class="icon">💡</span>
+      <h4>2分野の専門知識が身につく</h4>
+      <p>ホワイトニング機器と通信回線という異なる専門領域のノウハウが、あなたの市場価値を大きく高めます。</p>
+    </div>
+    <div class="culture-card fade-in">
+      <span class="icon">🚀</span>
+      <h4>裁量権が大きい</h4>
+      <p>自分のやり方で動ける自由があります。数字さえ出せば、アプローチ方法はあなた次第。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VOICE ═══ -->
+<section id="voice">
+  <div class="section-header fade-in">
+    <div class="section-label">Employee Voice</div>
+    <h2 class="section-title">社員の声</h2>
+    <p class="section-desc">実際に働くメンバーのリアルな声をお届けします。</p>
+  </div>
+  <div class="voice-grid">
+    <div class="voice-card fade-in">
+      <div class="q-mark">"</div>
+      <p class="voice-text">
+        前職では頑張っても給与が変わらなかったけど、Nowbに来てから半年で年収が1.5倍になりました。
+        成果が即座に反映される環境が、やりがいを生んでいます。
+      </p>
+      <div class="voice-person">
+        <div class="voice-avatar">👨</div>
+        <div>
+          <h5>Aさん（28歳・営業職）</h5>
+          <p>入社1年 / 年収620万円</p>
+        </div>
+      </div>
+    </div>
+    <div class="voice-card fade-in">
+      <div class="q-mark">"</div>
+      <p class="voice-text">
+        お客様に「ありがとう、あなたに頼んでよかった」と言ってもらえる瞬間が、
+        この仕事の醍醐味です。数字の追求と誠実さは両立できると学びました。
+      </p>
+      <div class="voice-person">
+        <div class="voice-avatar">👩</div>
+        <div>
+          <h5>Bさん（31歳・ホワイトニング担当）</h5>
+          <p>入社2年 / 年収780万円</p>
+        </div>
+      </div>
+    </div>
+    <div class="voice-card fade-in">
+      <div class="q-mark">"</div>
+      <p class="voice-text">
+        未経験で入社しましたが、先輩のサポートが手厚くて安心でした。
+        今では自分でクロージングまで完結できるようになり、自信がつきました。
+      </p>
+      <div class="voice-person">
+        <div class="voice-avatar">🧑</div>
+        <div>
+          <h5>Cさん（24歳・通信回線担当）</h5>
+          <p>入社8ヶ月 / 年収420万円</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section id="process">
+  <div class="section-header fade-in" style="text-align:center;">
+    <div class="section-label">Selection Process</div>
+    <h2 class="section-title">選考の流れ</h2>
+    <p class="section-desc" style="margin:0 auto;">
+      応募から内定まで、最短1週間で完結します。
+    </p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step fade-in">
+      <div class="process-num dark">1</div>
+      <h4>エントリー</h4>
+      <p>フォームから応募。<br>24時間以内に返信します。</p>
+    </div>
+    <div class="process-step fade-in">
+      <div class="process-num gold">2</div>
+      <h4>書類選考</h4>
+      <p>履歴書・職務経歴書<br>（未経験は不問）</p>
+    </div>
+    <div class="process-step fade-in">
+      <div class="process-num dark">3</div>
+      <h4>面接（1〜2回）</h4>
+      <p>オンライン可。<br>人柄重視の面接です。</p>
+    </div>
+    <div class="process-step fade-in">
+      <div class="process-num gold">4</div>
+      <h4>内定・入社</h4>
+      <p>内定後は入社日を<br>相談しながら決定。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ APPLY CTA ═══ -->
+<section id="apply-cta">
+  <div class="cta-en fade-in">Join Our Team</div>
+  <h2 class="fade-in">あなたの<span>営業力</span>を、<br>ここで爆発させよう。</h2>
+  <p class="fade-in">
+    経験・未経験問わず、熱量のある方を歓迎します。
+    まずはカジュアルにご相談ください。
+  </p>
+
+  <div class="apply-form-wrap fade-in" id="apply-wrap">
+    <h3>📋 応募フォーム</h3>
+    <form id="apply-form" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label>お名前<span class="req">*</span></label>
+          <input type="text" name="name" placeholder="山田 太郎" required />
+        </div>
+        <div class="form-group">
+          <label>年齢</label>
+          <input type="number" name="age" placeholder="25" min="18" max="65" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>メールアドレス<span class="req">*</span></label>
+          <input type="email" name="email" placeholder="example@email.com" required />
+        </div>
+        <div class="form-group">
+          <label>電話番号<span class="req">*</span></label>
+          <input type="tel" name="tel" placeholder="090-0000-0000" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>希望職種<span class="req">*</span></label>
+        <select name="position" required>
+          <option value="" disabled selected>選択してください</option>
+          <option value="whitening">営業職（ホワイトニング機器担当）</option>
+          <option value="line">営業職（通信回線・インターネット担当）</option>
+          <option value="manager">営業マネージャー（チームリード）</option>
+          <option value="both">複数の職種に興味あり</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>営業経験</label>
+        <select name="experience">
+          <option value="" disabled selected>選択してください</option>
+          <option>未経験（営業は初めて）</option>
+          <option>1〜2年</option>
+          <option>3〜5年</option>
+          <option>6年以上</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>自己PR・志望動機</label>
+        <textarea name="message" placeholder="「売ることが好き」「年収を上げたい」「誠実な営業がしたい」など、なんでもOKです！"></textarea>
+      </div>
+
+      <label class="form-check">
+        <input type="checkbox" name="privacy" required />
+        <span>個人情報の取り扱いに同意します。ご応募いただいた情報は採用選考のみに使用します。</span>
+      </label>
+
+      <button type="submit" class="btn-submit">応募する →</button>
+    </form>
+
+    <div class="form-success" id="apply-success">
+      <div class="si">🎉</div>
+      <h4>ご応募ありがとうございます！</h4>
+      <p>24時間以内にご連絡いたします。<br>楽しみにお待ちください！</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="pointer-events:all;">
+          <div>
+            <div class="nav-logo-wordmark"><span class="wm-now">Now</span><span class="wm-b">b</span></div>
+            <span class="nav-logo-sub">Your Sales, Our Mission.</span>
+          </div>
+        </a>
+        <p>
+          営業代理業・セールスコンサルティングを通じて、クライアントの事業成長を
+          最前線でサポートします。戦略立案から現場実行まで、一気通貫でお任せください。
+        </p>
+        <p style="margin-top:12px; font-size:0.82rem; color:rgba(255,255,255,0.45);">
+          📧 jb142056h@gmail.com<br>
+          🌐 全国対応可（リモート対応可）
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>採用情報</h5>
+        <ul>
+          <li><a href="#positions">募集職種</a></li>
+          <li><a href="#culture">カルチャー</a></li>
+          <li><a href="#voice">社員の声</a></li>
+          <li><a href="#process">選考の流れ</a></li>
+          <li><a href="#apply-cta">今すぐ応募</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>会社情報</h5>
+        <ul>
+          <li><a href="index.html">会社トップ</a></li>
+          <li><a href="index.html#services">サービス内容</a></li>
+          <li><a href="index.html#trust">私たちの強み</a></li>
+          <li><a href="index.html#contact">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">
+        <strong>株式会社Nowb</strong><br>
+        &copy; 2024 Nowb Inc. All rights reserved.<br>
+        <span style="font-size:0.7rem;">営業代理業・セールスコンサルティング | シャリオン正規代理店 | 通信回線営業代理店</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">利用規約</a>
+        <a href="index.html#contact">お問い合わせ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ─── パーティクル ─── */
+(function() {
+  const c = document.getElementById('hero-canvas');
+  const ctx = c.getContext('2d');
+  let P = [], W, H;
+
+  function resize() { W = c.width = innerWidth; H = c.height = innerHeight; }
+  addEventListener('resize', resize);
+  resize();
+
+  function init() {
+    P = [];
+    const n = Math.floor(W * H / 8500);
+    for (let i = 0; i < n; i++) {
+      P.push({
+        x: Math.random() * W, y: Math.random() * H,
+        r: Math.random() * 1.4 + 0.3,
+        a: Math.random() * 0.8 + 0.15,
+        dx: (Math.random() - 0.5) * 0.3,
+        dy: (Math.random() - 0.5) * 0.3,
+        tw: Math.random() * Math.PI * 2,
+        ts: Math.random() * 0.04 + 0.02,
+      });
+    }
+  }
+  init();
+  addEventListener('resize', init);
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    P.forEach(p => {
+      p.tw += p.ts;
+      const alpha = p.a * (0.4 + 0.6 * Math.sin(p.tw));
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+      ctx.fill();
+      p.x += p.dx; p.y += p.dy;
+      if (p.x < 0) p.x = W;
+      if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H;
+      if (p.y > H) p.y = 0;
+    });
+    if (Math.random() < 0.004) {
+      const sx = Math.random() * W, sy = Math.random() * H * 0.5, len = 100 + Math.random() * 140;
+      const g = ctx.createLinearGradient(sx, sy, sx + len * 0.7, sy + len * 0.35);
+      g.addColorStop(0, 'rgba(255,255,255,0)');
+      g.addColorStop(0.45, 'rgba(255,255,255,0.55)');
+      g.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.beginPath();
+      ctx.strokeStyle = g; ctx.lineWidth = 1.2;
+      ctx.moveTo(sx, sy); ctx.lineTo(sx + len * 0.7, sy + len * 0.35);
+      ctx.stroke();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ─── NAV ─── */
+const navbar    = document.getElementById('navbar');
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+
+document.querySelectorAll('.ml').forEach(a => {
+  a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', scrollY > 40);
+  const total = document.documentElement.scrollHeight - innerHeight;
+  document.getElementById('progress-bar').style.width = (scrollY / total * 100) + '%';
+}, { passive: true });
+
+/* ─── フェードイン ─── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 90);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.10 });
+
+document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => io.observe(el));
+
+/* ─── カウンター ─── */
+const co = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, target = +el.dataset.target, dur = 1800, t0 = performance.now();
+    (function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target);
+      if (p < 1) requestAnimationFrame(tick); else el.textContent = target;
+    })(t0);
+    co.unobserve(el);
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.counter').forEach(el => co.observe(el));
+
+/* ─── 応募フォーム ─── */
+document.getElementById('apply-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('.btn-submit');
+  btn.textContent = '送信中...';
+  btn.disabled = true;
+  setTimeout(() => {
+    this.style.display = 'none';
+    document.getElementById('apply-success').style.display = 'block';
+  }, 1200);
+});
+</script>
+</body>
+</html>
